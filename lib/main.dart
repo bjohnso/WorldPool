@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:world_pool/wallet_screen.dart';
+import 'package:world_pool/wallet_screen/wallet_screen.dart';
 
 void main() {
   runApp(const MyApp());
