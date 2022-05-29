@@ -36,9 +36,19 @@ class _TokenCardState extends State<TokenCardWidget> {
                   margin: const EdgeInsets.only(left: 10.0, right: 10.0, bottom: 5.0, top: 5.0),
                   color: widget.cardColour == null ? Colors.white: widget.cardColour!,
                   shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15.0)),
-               
+
+                  child: Container(
+                    decoration: const BoxDecoration(
+                      // gradient: LinearGradient(
+                      //   colors: [
+                      //     Colors.pinkAccent,
+                      //     Colors.white,
+                      //   ],
+                      // ),
+                      borderRadius: BorderRadius.all(Radius.circular(15.0))
+                    ),
                     child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
                           Padding(
@@ -50,12 +60,12 @@ class _TokenCardState extends State<TokenCardWidget> {
                                 mainAxisSize: MainAxisSize.min,
                                 crossAxisAlignment: CrossAxisAlignment.center,
                                 children: [
-                                    Container(clipBehavior: Clip.antiAlias,
-                                      width: 60,
-                                      height: 60,
-                                      decoration: const BoxDecoration(shape: BoxShape.circle),
-                                      child: Image.asset(widget.imageUrl == null ? 'images/world.png' : widget.imageUrl!),
-                                    ),
+                                  Container(clipBehavior: Clip.antiAlias,
+                                    width: 60,
+                                    height: 60,
+                                    decoration: const BoxDecoration(shape: BoxShape.circle),
+                                    child: Image.asset(widget.imageUrl == null ? 'images/world.png' : widget.imageUrl!),
+                                  ),
 
 
                                   Padding(
@@ -99,8 +109,9 @@ class _TokenCardState extends State<TokenCardWidget> {
                               ),
                             ),
                           ),
-                      ]
+                        ]
                     ),
+                  ),
 
     )
             ),
