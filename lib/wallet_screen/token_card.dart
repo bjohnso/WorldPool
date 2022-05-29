@@ -39,12 +39,6 @@ class _TokenCardState extends State<TokenCardWidget> {
 
                   child: Container(
                     decoration: const BoxDecoration(
-                      // gradient: LinearGradient(
-                      //   colors: [
-                      //     Colors.pinkAccent,
-                      //     Colors.white,
-                      //   ],
-                      // ),
                       borderRadius: BorderRadius.all(Radius.circular(15.0))
                     ),
                     child: Row(

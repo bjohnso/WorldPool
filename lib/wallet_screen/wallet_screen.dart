@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:todo/todo.dart';
-import 'package:world_pool/wallet_screen/token_card.dart';
+import 'package:world_pool/wallet_screen/pool_card.dart' as pool_card;
+import 'package:world_pool/wallet_screen/token_card.dart' as token_card;
 
+import '../dto/pool.dart';
 import '../dto/token.dart';
 
 class WalletScreenWidget extends StatefulWidget {
@@ -13,21 +15,55 @@ class WalletScreenWidget extends StatefulWidget {
       title: 'World',
       symbol: 'WORLD',
       balance: 1000.0,
+        imageUrl: 'images/world.png'
     ),
     const Token(
       title: 'Solana',
       symbol: 'SOL',
       balance: 3138.93701,
+        imageUrl: 'images/sol.png'
     ),
     const Token(
       title: 'Polygon',
       symbol: 'MATIC',
       balance: 99999.9991,
+        imageUrl: 'images/matic.png'
     ),
     const Token(
       title: 'Ethereum',
       symbol: 'ETH',
       balance: 57.97061,
+        imageUrl: 'images/eth.png'
+    ),
+  ];
+
+  final List<Pool> poolList = [
+    const Pool(
+      poolId: '1',
+      title: 'Earth Foundation',
+      description: "We protect and restore\nthe world's natural habitats",
+      tokens: [
+        Token(
+            title: 'Polygon',
+            symbol: 'MATIC',
+            balance: 99999.9991,
+            imageUrl: 'images/matic.png'
+        ),
+      ], imageUrl: 'images/trust_for_public_land.png'
+    ),
+    const Pool(
+        poolId: '2',
+        title: 'Solar Nation',
+        description: "We provide the world with\nsustainable energy by creating\nsolar farms across the planet",
+        tokens: [
+          Token(
+              title: 'Ethereum',
+              symbol: 'ETH',
+              balance: 57.97061,
+              imageUrl: 'images/eth.png'
+          ),
+        ],
+        imageUrl: 'images/solar_power.png'
     ),
   ];
 
@@ -92,9 +128,9 @@ class _WalletScreenWidgetState extends State<WalletScreenWidget> with SingleTick
       ),
       bottom: TabBar(
           tabs: [
-            Tab(text: WalletTab.tokens.name),
-            Tab(text: WalletTab.pools.name),
-            Tab(text: WalletTab.nfts.name)
+            Tab(text: WalletTab.Tokens.name),
+            Tab(text: WalletTab.Pools.name),
+            Tab(text: WalletTab.NFTs.name)
           ],
         controller: _tabController,
       ),
@@ -121,7 +157,7 @@ class _WalletScreenWidgetState extends State<WalletScreenWidget> with SingleTick
       case 0:
         return buildTokenList();
       case 1:
-        return buildEmptySliver();
+        return buildPoolList();
       case 2:
         return buildEmptySliver();
       default:
@@ -131,17 +167,13 @@ class _WalletScreenWidgetState extends State<WalletScreenWidget> with SingleTick
 
   Widget buildTokenList() {
     return SliverList(
-      delegate: SliverChildBuilderDelegate((BuildContext context,
-          int index) {
+      delegate: SliverChildBuilderDelegate((BuildContext context, int index) {
         Token token = widget.tokenList[index];
-        TokenImageAssets asset = TokenImageAssets.values.firstWhere((
-            element) =>
-        element.value.toString().toUpperCase() == token.symbol.toUpperCase()
-        );
-        return TokenCardWidget(
+
+        return token_card.TokenCardWidget(
           title: token.title,
           balance: token.balance,
-          imageUrl: asset.path,
+          imageUrl: token.imageUrl,
           cardColour: Colors.white,
         );
       },
@@ -151,7 +183,21 @@ class _WalletScreenWidgetState extends State<WalletScreenWidget> with SingleTick
   }
 
   Widget buildPoolList() {
-    TODO('buildPoolList');
+    return SliverList(
+      delegate: SliverChildBuilderDelegate((BuildContext context, int index) {
+        Pool pool = widget.poolList[index];
+
+        return pool_card.PoolCardWidget(
+          title: pool.title,
+          description: pool.description,
+          cardColour: Colors.white,
+          tokens: pool.tokens,
+          imageUrl: pool.imageUrl,
+        );
+      },
+        childCount: widget.poolList.length,
+      ),
+    );
   }
 
   Widget buildNFTList() {
@@ -164,7 +210,7 @@ class _WalletScreenWidgetState extends State<WalletScreenWidget> with SingleTick
 }
 
 enum WalletTab {
-  tokens,
-  pools,
-  nfts
+  Tokens,
+  Pools,
+  NFTs
 }
